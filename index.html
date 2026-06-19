@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-  <title>J.A.R.V.I.S - Vision System</title>
+  <title>J.A.R.V.I.S - Vision System v3.1</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <div class="jarvis">
-    <!-- Camera Background - Jarvis Eyes -->
+    <!-- Camera Background -->
     <video id="camera" autoplay playsinline muted></video>
     <canvas id="visionCanvas"></canvas>
 
@@ -23,12 +23,30 @@
       <div class="scan-line"></div>
     </div>
 
-    <!-- Floating Draggable Windows -->
+    <!-- Window Relaunch Dock -->
+    <div class="window-dock" id="windowDock">
+      <div class="dock-title">SYSTEMS</div>
+      <button class="dock-btn" data-window="coreWindow" title="Core">
+        <i class="fa-solid fa-atom"></i>
+      </button>
+      <button class="dock-btn" data-window="chatWindow" title="Chat">
+        <i class="fa-solid fa-comments"></i>
+      </button>
+      <button class="dock-btn" data-window="searchWindow" title="Search">
+        <i class="fa-solid fa-globe"></i>
+      </button>
+      <button class="dock-btn" data-window="visionWindow" title="Vision">
+        <i class="fa-solid fa-eye"></i>
+      </button>
+    </div>
+
+    <!-- Floating Windows -->
     <div class="window" id="coreWindow" data-x="50" data-y="50">
       <div class="window-header">
         <span><i class="fa-solid fa-atom"></i> CORE</span>
         <div class="window-controls">
           <button class="win-btn min"><i class="fa-solid fa-minus"></i></button>
+          <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
         </div>
       </div>
       <div class="window-body">
@@ -44,7 +62,7 @@
           <div class="stat"><span class="dot" id="camDot"></span>CAM</div>
           <div class="stat"><span class="dot" id="aiDot"></span>AI</div>
           <div class="stat"><span class="dot" id="netDot"></span>NET</div>
-          <div class="stat" id="fps">0 FPS</div>
+          <div class="stat" id="fps">60 FPS</div>
         </div>
       </div>
     </div>
@@ -53,6 +71,7 @@
       <div class="window-header">
         <span><i class="fa-solid fa-comments"></i> NEURAL LINK</span>
         <div class="window-controls">
+          <button class="win-btn min"><i class="fa-solid fa-minus"></i></button>
           <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
         </div>
       </div>
@@ -69,12 +88,14 @@
       <div class="window-header">
         <span><i class="fa-solid fa-globe"></i> GLOBAL DATABASE</span>
         <div class="window-controls">
+          <button class="win-btn min"><i class="fa-solid fa-minus"></i></button>
           <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
         </div>
       </div>
       <div class="window-body">
         <div class="search-tabs">
-          <button class="tab active" data-tab="web">Web</button>
+          <button class="tab active" data-tab="google">Google</button>
+          <button class="tab" data-tab="web">DuckDuckGo</button>
           <button class="tab" data-tab="wiki">Wikipedia</button>
           <button class="tab" data-tab="youtube">YouTube</button>
         </div>
@@ -91,23 +112,29 @@
       <div class="window-header">
         <span><i class="fa-solid fa-eye"></i> VISUAL ANALYSIS</span>
         <div class="window-controls">
+          <button class="win-btn min"><i class="fa-solid fa-minus"></i></button>
           <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
         </div>
       </div>
       <div class="window-body">
         <div class="vision-stats">
           <div class="vision-item">
-            <label>Objects Detected:</label>
+            <label>Objects:</label>
             <span id="objectCount">0</span>
-          </div>
-          <div class="vision-item">
-            <label>Faces:</label>
-            <span id="faceCount">0</span>
           </div>
           <div class="vision-item">
             <label>Motion:</label>
             <span id="motionLevel">0%</span>
           </div>
+          <div class="vision-item">
+            <label>Perf:</label>
+            <select id="perfMode" style="width:auto;padding:4px;background:rgba(0,0,0,.5);border:1px solid var(--hud-dim);border-radius:4px;color:var(--text);font-size:10px;">
+              <option value="high">High (30fps)</option>
+              <option value="medium" selected>Medium (15fps)</option>
+              <option value="low">Low (5fps)</option>
+            </select>
+          </div>
+        </div>
         <div class="vision-log" id="visionLog"></div>
       </div>
     </div>
@@ -123,11 +150,8 @@
       <button class="tool-btn" id="toggleVoice" title="Voice">
         <i class="fa-solid fa-volume-high"></i>
       </button>
-      <button class="tool-btn" id="toggleWindows" title="Show All Windows">
-        <i class="fa-solid fa-window-restore"></i>
-      </button>
-      <button class="tool-btn" id="clearAll" title="Clear All">
-        <i class="fa-solid fa-trash"></i>
+      <button class="tool-btn" id="capturePhoto" title="Capture">
+        <i class="fa-solid fa-camera"></i>
       </button>
     </div>
 
@@ -140,8 +164,7 @@
         </div>
         <div class="modal-body">
           <div class="alert">
-            <strong>Free AI:</strong> Get key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a><br>
-            Powers man-to-man conversation + web search synthesis
+            <strong>Free AI:</strong> Get key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a>
           </div>
           <div class="field">
             <label>AI Provider</label>
@@ -153,7 +176,12 @@
           </div>
           <div class="field">
             <label>API Key</label>
-            <input type="password" id="apiKey" placeholder="gsk_... or sk-...">
+            <div style="display:flex;gap:6px;">
+              <input type="password" id="apiKey" placeholder="gsk_... or sk-..." style="flex:1;">
+              <button class="btn-ghost" id="pasteKey" style="padding:10px;">
+                <i class="fa-solid fa-paste"></i>
+              </button>
+            </div>
           </div>
           <div class="field">
             <label>Personality</label>
