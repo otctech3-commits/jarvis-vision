@@ -1,97 +1,79 @@
 # jarvis-vision
 MAIN WEB : https://mk-bots.blogspot.com/2026/05/mk-bots.html
-# 👁️ J.A.R.V.I.S Vision System
+<div align="center">
 
-Iron Man style AI with camera eyes, web search, Wikipedia, YouTube, and man-to-man AI chat.
+# 👁️ J.A.R.V.I.S VISION SYSTEM v3.1
 
-**Live Demo:** https://otctech3-commits.github.io/jarvis-vision/
+<img src="https://media.giphy.com/media/3o7aCTfyhYawdOXcFW/giphy.gif" width="600" alt="Iron Man HUD">
 
-## ✨ Features
+### *"Sometimes you gotta run before you can walk."* - Tony Stark
 
-- **Camera Vision** - Real-time object detection via TensorFlow.js
-- **Web Search** - DuckDuckGo integration
-- **Wikipedia** - Instant article summaries
-- **YouTube** - Video search and embed
-- **AI Chat** - Groq/OpenAI powered conversation
-- **Voice Control** - Speech recognition + synthesis
-- **Floating HUD** - Draggable windows like Iron Man
-- **Motion Detection** - Track movement in frame
-- **Photo Capture** - Save snapshots
-- **100% Client-Side** - No backend, GitHub Pages ready
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=25&duration=3000&pause=1000&color=00D9FF&center=true&vCenter=true&width=600&lines=Camera+Vision+Active;Object+Detection+Online;Neural+Core+Engaged;Welcome+Sir" alt="Typing SVG" />
 
-## 🚀 Deploy to GitHub Pages
+[![Deploy](https://img.shields.io/badge/Deploy-GitHub%20Pages-00d9ff?style=for-the-badge&logo=github)](https://github.com/yourusername/jarvis-vision)
+[![License](https://img.shields.io/badge/License-MIT-ff006e?style=for-the-badge)](LICENSE)
+[![Version](https://img.shields.io/badge/Version-3.1-00ff88?style=for-the-badge)](https://github.com/yourusername/jarvis-vision)
 
-1. Fork this repo
-2. Settings → Pages → Source: main → Save
-3. Visit `https://yourusername.github.io/jarvis-vision/`
-4. Grant camera permission
-5. Configure AI key in settings (optional)
-
-## 🎤 Voice Commands
-
-- "What do you see?" - Object detection report
-- "Search for [topic]" - Web search
-- "Wikipedia [topic]" - Wiki article
-- "YouTube [topic]" - Video search
-- "Take photo" - Capture frame
-- "What time is it?" - Current time
-- Natural conversation if AI configured
-
-## 🧠 AI Setup (Optional)
-
-1. Get free API key: https://console.groq.com/keys
-2. Click brain icon in toolbar
-3. Select Groq, paste key
-4. Choose personality
-5. Activate
-
-**Personalities:**
-- JARVIS - Formal, witty, "Sir"
-- Casual - Chill friend vibe
-- Technical - Engineer mode
-- Sarcastic - Roast mode
-
-## 📱 Controls
-
-- **Mic Button** - Voice input
-- **Camera Icon** - Toggle camera
-- **Brain Icon** - AI settings
-- **Volume Icon** - Toggle voice
-- **Windows Icon** - Show all windows
-- **Trash Icon** - Clear all
-
-**Drag windows** by their headers to arrange HUD.
-
-## 🔧 Tech Stack
-
-- **TensorFlow.js** - Object detection (COCO-SSD)
-- **Web Speech API** - Voice I/O
-- **MediaDevices API** - Camera access
-- **Groq API** - Fast LLM inference
-- **DuckDuckGo API** - Web search
-- **Wikipedia API** - Article data
-- **Vanilla JS** - No frameworks
-
-## 🎯 Browser Support
-
-- Chrome/Edge - Full support
-- Firefox - Full support
-- Safari - Full support (iOS 14.5+)
-- Mobile - Works with camera
-
-## 📜 License
-
-MIT - Build your own Jarvis
-
-## ⚠️ Privacy
-
-- Camera feed stays in browser
-- No data sent to servers except API calls
-- AI key stored in localStorage only
-- Object detection runs locally via TensorFlow.js
+</div>
 
 ---
 
-**"Sometimes you gotta run before you can walk." - Tony Stark**
+## 🌟 FEATURES
 
-Built with 🤍 for the future
+<table>
+<tr>
+<td width="50%">
+
+### 👁️ **Vision System**
+- Real-time object detection
+- TensorFlow.js COCO-SSD
+- Motion tracking
+- Photo capture
+- 60 FPS optimized
+
+</td>
+<td width="50%">
+
+### 🧠 **Neural Core**
+- Groq/OpenAI integration
+- Man-to-man conversation
+- Vision context awareness
+- 4 personalities
+- Voice synthesis
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 🌐 **Global Database**
+- Google Search
+- DuckDuckGo Search
+- Wikipedia API
+- YouTube Search
+- Real-time results
+
+</td>
+<td width="50%">
+
+### 🎛️ **Iron Man HUD**
+- Draggable windows
+- Window relaunch dock
+- Performance modes
+- Camera feed background
+- Animated overlays
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🚀 QUICK START
+
+```bash
+# 1. Fork this repo
+# 2. Enable GitHub Pages (Settings → Pages → main branch)
+# 3. Visit https://yourusername.github.io/jarvis-vision/
+# 4. Allow camera access
+# 5. Configure AI key (optional)
