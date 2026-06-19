@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>J.A.R.V.I.S - Vision System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="jarvis">
+    <!-- Camera Background - Jarvis Eyes -->
+    <video id="camera" autoplay playsinline muted></video>
+    <canvas id="visionCanvas"></canvas>
+
+    <!-- HUD Overlay -->
+    <div class="hud">
+      <div class="hud-corner tl"></div>
+      <div class="hud-corner tr"></div>
+      <div class="hud-corner bl"></div>
+      <div class="hud-corner br"></div>
+      <div class="scan-line"></div>
+    </div>
+
+    <!-- Floating Draggable Windows -->
+    <div class="window" id="coreWindow" data-x="50" data-y="50">
+      <div class="window-header">
+        <span><i class="fa-solid fa-atom"></i> CORE</span>
+        <div class="window-controls">
+          <button class="win-btn min"><i class="fa-solid fa-minus"></i></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="core-orb" id="coreOrb">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+          <div class="ring r3"></div>
+          <div class="center" id="micBtn">
+            <i class="fa-solid fa-microphone-slash"></i>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span class="dot" id="camDot"></span>CAM</div>
+          <div class="stat"><span class="dot" id="aiDot"></span>AI</div>
+          <div class="stat"><span class="dot" id="netDot"></span>NET</div>
+          <div class="stat" id="fps">0 FPS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="chatWindow" data-x="400" data-y="50">
+      <div class="window-header">
+        <span><i class="fa-solid fa-comments"></i> NEURAL LINK</span>
+        <div class="window-controls">
+          <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="chat-log" id="chatLog"></div>
+        <div class="chat-input">
+          <input type="text" id="textInput" placeholder="Speak or type, Sir...">
+          <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="searchWindow" data-x="50" data-y="400">
+      <div class="window-header">
+        <span><i class="fa-solid fa-globe"></i> GLOBAL DATABASE</span>
+        <div class="window-controls">
+          <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="search-tabs">
+          <button class="tab active" data-tab="web">Web</button>
+          <button class="tab" data-tab="wiki">Wikipedia</button>
+          <button class="tab" data-tab="youtube">YouTube</button>
+        </div>
+        <div class="search-content" id="searchContent">
+          <div class="search-placeholder">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>Awaiting query, Sir</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="window" id="visionWindow" data-x="800" data-y="50">
+      <div class="window-header">
+        <span><i class="fa-solid fa-eye"></i> VISUAL ANALYSIS</span>
+        <div class="window-controls">
+          <button class="win-btn close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="vision-stats">
+          <div class="vision-item">
+            <label>Objects Detected:</label>
+            <span id="objectCount">0</span>
+          </div>
+          <div class="vision-item">
+            <label>Faces:</label>
+            <span id="faceCount">0</span>
+          </div>
+          <div class="vision-item">
+            <label>Motion:</label>
+            <span id="motionLevel">0%</span>
+          </div>
+        <div class="vision-log" id="visionLog"></div>
+      </div>
+    </div>
+
+    <!-- Bottom Toolbar -->
+    <div class="toolbar">
+      <button class="tool-btn" id="toggleCam" title="Toggle Camera">
+        <i class="fa-solid fa-video"></i>
+      </button>
+      <button class="tool-btn" id="toggleAI" title="AI Settings">
+        <i class="fa-solid fa-brain"></i>
+      </button>
+      <button class="tool-btn" id="toggleVoice" title="Voice">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <button class="tool-btn" id="toggleWindows" title="Show All Windows">
+        <i class="fa-solid fa-window-restore"></i>
+      </button>
+      <button class="tool-btn" id="clearAll" title="Clear All">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+
+    <!-- AI Settings Modal -->
+    <div class="modal" id="aiModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-brain"></i> Neural Core Configuration</h3>
+          <button class="close" id="closeAI"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert">
+            <strong>Free AI:</strong> Get key at <a href="https://console.groq.com/keys" target="_blank">console.groq.com</a><br>
+            Powers man-to-man conversation + web search synthesis
+          </div>
+          <div class="field">
+            <label>AI Provider</label>
+            <select id="aiProvider">
+              <option value="groq">Groq - Llama 3.1 70B</option>
+              <option value="openai">OpenAI - GPT-4o</option>
+              <option value="none">Disabled</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>API Key</label>
+            <input type="password" id="apiKey" placeholder="gsk_... or sk-...">
+          </div>
+          <div class="field">
+            <label>Personality</label>
+            <select id="personality">
+              <option value="jarvis">JARVIS - Formal, Witty</option>
+              <option value="casual">Casual Friend</option>
+              <option value="technical">Technical Expert</option>
+              <option value="sarcastic">Sarcastic AI</option>
+            </select>
+          </div>
+          <button class="btn-primary" id="saveAI">Activate Neural Core</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
