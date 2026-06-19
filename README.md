@@ -4,7 +4,7 @@ MAIN WEB : https://mk-bots.blogspot.com/2026/05/mk-bots.html
 
 Iron Man style AI with camera eyes, web search, Wikipedia, YouTube, and man-to-man AI chat.
 
-**Live Demo:** https://yourusername.github.io/jarvis-vision/
+**Live Demo:** https://otctech3-commits.github.io/jarvis-vision/
 
 ## ✨ Features
 
